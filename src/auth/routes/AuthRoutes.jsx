@@ -1,8 +1,17 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { LoginPage, RegisterPage } from '../pages';
+import { CheckingAuth } from '../../ui';
 
 export const AuthRoutes = () => {
+
+  const { status } = useSelector(state => state.auth);
+
+  if ( status === 'checking' ) {
+    return <CheckingAuth />
+  }
+
   return (
     <Routes>
       <Route path="login" element={ <LoginPage /> } />
