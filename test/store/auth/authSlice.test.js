@@ -1,5 +1,5 @@
-import { authSlice, checkingCredentials, login, logout } from './src/store/auth/authSlice';
-import { authenticatedState, demoUser, initialState } from './test/fixtures/authFixtures';
+import { authSlice, checkingCredentials, login, logout } from '../../../src/store/auth/authSlice';
+import { authenticatedState, demoUser, initialState } from '../../fixtures/authFixtures';
 
 describe('Pruebas en authSlice', () => {
   
