@@ -8,10 +8,20 @@ import { authSlice } from '../../../src/store/auth';
 import { notAuthenticatedState } from '../../fixtures/authFixtures';
 
 const mockGoogleSignIn = jest.fn();
+const mockStartLoginWithEmailPassword = jest.fn();
 
-// Crear mock
+// Crear mocks
 jest.mock('../../../src/store/auth/thunks.js', () => ({
-  startGoogleSignIn: () => mockGoogleSignIn
+  startGoogleSignIn: () => mockGoogleSignIn,
+  startLoginWithEmailPassword: ({ email, password }) => {
+    return () => mockStartLoginWithEmailPassword({ email, password });
+  },
+}));
+
+// sobreescribir cualquier libreria para hacer pruebas
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: () => (fn) => fn(), // una funcion que regresa una funcion
 }));
 
 const store = configureStore({
@@ -24,6 +34,8 @@ const store = configureStore({
 });
 
 describe('Pruebas en <LoginPage/>', () => {
+
+  beforeEach(() => jest.clearAllMocks());
   
   test('debe de mostrar el componente correctamente', () => {
 
@@ -65,4 +77,35 @@ describe('Pruebas en <LoginPage/>', () => {
     expect( mockGoogleSignIn ).toHaveBeenCalled();    
   });
   
+  test('submit debe de llamar el startLoginWithEmailPassword', () => {
+
+    const email = 'test1@test.com';
+    const password = '12345678';
+
+    render(
+      <Provider store={ store }>
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const emailField = screen.getByRole('textbox', { name: 'Correo' });
+    // console.log(emailField);
+    // screen.debug();
+    fireEvent.change( emailField, { target: { name: 'email', value: email } } );
+    
+    const passwordField = screen.getByTestId('password');
+    fireEvent.change( passwordField, { target: { name: 'password', value: password } } );
+    
+    const loginForm = screen.getByLabelText('submit-form');
+    fireEvent.submit(loginForm);
+
+    expect( mockStartLoginWithEmailPassword ).toHaveBeenCalledWith({
+      email,
+      password
+    });
+
+  });
+
 });

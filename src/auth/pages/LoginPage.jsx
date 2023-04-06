@@ -45,6 +45,8 @@ export const LoginPage = () => {
     event.preventDefault();
     setFormSubmitted(true);
 
+    // console.log(formState); // testing
+
     if ( !isFormValid ) return;
 
     dispatch( startLoginWithEmailPassword(formState) );
@@ -59,6 +61,7 @@ export const LoginPage = () => {
     <AuthLayout title="Login">
 
       <form
+        aria-label="submit-form"
         className="animate__animated animate__fadeIn animate__faster"
         onSubmit={ onSubmit }>
         <Grid container>
@@ -83,6 +86,7 @@ export const LoginPage = () => {
               placeholder="*********"
               fullWidth
               name="password"
+              inputProps={{ 'data-testid': 'password' }} // testing
               value={ password }
               onChange={ onInputChange }          
               error={ !!passwordValid && formSubmitted }
