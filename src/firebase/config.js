@@ -1,6 +1,12 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore/lite';
+import { getEnvironments } from '../helpers';
+
+// console.log(import.meta.env);
+// console.log(process.env);
+const env = getEnvironments();
+console.log(env);
 
 // Dev/Prod
 // const firebaseConfig = {
