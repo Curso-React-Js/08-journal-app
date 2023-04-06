@@ -51,6 +51,7 @@ export const LoginPage = () => {
   }
   
   const onGoogleSignIn = () => {
+    // console.log('onGoogleSignIn'); // testing
     dispatch( startGoogleSignIn() );
   }
 
@@ -108,6 +109,7 @@ export const LoginPage = () => {
 
             <Grid item xs={ 12 } sm={ 6 }>
               <Button
+                aria-label="google-btn"
                 disabled={ isAuthenticating }
                 variant="contained"
                 fullWidth
