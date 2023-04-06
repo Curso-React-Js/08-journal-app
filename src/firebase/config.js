@@ -5,28 +5,25 @@ import { getEnvironments } from '../helpers';
 
 // console.log(import.meta.env);
 // console.log(process.env);
-const env = getEnvironments();
-console.log(env);
+const {
+  VITE_APIKEY,
+  VITE_AUTHDOMAIN,
+  VITE_DATABASEURL,
+  VITE_PROJECTID,
+  VITE_STORAGEBUCKET,
+  VITE_MESSAGINGSENDERID,
+  VITE_APPID,
+} = getEnvironments();
 
-// Dev/Prod
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyDMYe3ExY0ONoIlHC2afugpw0TkA2XvpWQ',
-//   authDomain: 'react-cursos-6e1f5.firebaseapp.com',
-//   projectId: 'react-cursos-6e1f5',
-//   storageBucket: 'react-cursos-6e1f5.appspot.com',
-//   messagingSenderId: '1008526551171',
-//   appId: '1:1008526551171:web:14d7ee463c268c724c53b6'
-// };
-
-// DB para testing
+// DB para Dev/Prod & testing
 const firebaseConfig = {
-  apiKey: "AIzaSyAic2dlUYjEKEeqNriNxRHIkk7ErRJthZ0",
-  authDomain: "vue-demos-d239a.firebaseapp.com",
-  databaseURL: "https://vue-demos-d239a-default-rtdb.firebaseio.com",
-  projectId: "vue-demos-d239a",
-  storageBucket: "vue-demos-d239a.appspot.com",
-  messagingSenderId: "531116176863",
-  appId: "1:531116176863:web:4edc665d99af22d7ae006a"
+  apiKey: VITE_APIKEY,
+  authDomain: VITE_AUTHDOMAIN,
+  databaseURL: VITE_DATABASEURL,
+  projectId: VITE_PROJECTID,
+  storageBucket: VITE_STORAGEBUCKET,
+  messagingSenderId: VITE_MESSAGINGSENDERID,
+  appId: VITE_APPID,
 };
 
 export const FirebaseApp = initializeApp( firebaseConfig );
